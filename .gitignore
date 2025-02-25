@@ -1,0 +1,14 @@
+# .gitignore
+
+# 특정파일 무시
+config.py       
+cowithone-scrap-1686123588417-7ea5acec3d36.json
+cowithone-scrap-1686123588417-91f4b69c2af2.json
+cowithone-scrap-1686123588417-f555af27cceb.json
+
+# 특정 폴더를 무시하고 싶다면 폴더명/ 패턴을 사용합니다.
+logs/        # "logs" 폴더를 무시합니다.
+__pycache__/
+
+# 특정 확장자의 파일을 무시하고 싶다면 *.확장자 패턴을 사용합니다.
+*.log        # ".log" 확장자를 가진 모든 파일을 무시합니다.
