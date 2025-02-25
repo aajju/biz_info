@@ -1,5 +1,7 @@
 # .gitignore
 
+.env
+
 # 특정파일 무시
 config.py       
 cowithone-scrap-1686123588417-7ea5acec3d36.json

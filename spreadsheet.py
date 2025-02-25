@@ -1,6 +1,6 @@
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
-import config
+import api_url
 import time
 from datetime import datetime
 
@@ -16,7 +16,7 @@ def get_spreadsheet(sheetid):
         "https://www.googleapis.com/auth/drive",
     ]
     credentials = ServiceAccountCredentials.from_json_keyfile_name(
-        config.JSON_KEYFILE, scope
+        api_url.JSON_KEYFILE, scope
     )
     client = gspread.authorize(credentials)
     return client.open_by_key(sheetid)
@@ -24,7 +24,7 @@ def get_spreadsheet(sheetid):
 
 # 인증 및 연결
 def save_data_bid(items, i):
-    spreadsheet = get_spreadsheet(config.SPREADSHEET_ID)
+    spreadsheet = get_spreadsheet(api_url.SPREADSHEET_ID)
 
     # 시트 열기
     worksheet = spreadsheet.get_worksheet(i)
@@ -424,7 +424,7 @@ def save_data_bid(items, i):
 
 
 def save_data_project(items, i):
-    spreadsheet = get_spreadsheet(config.SPREADSHEET_ID2)
+    spreadsheet = get_spreadsheet(api_url.SPREADSHEET_ID2)
 
     # 시트 열기
     worksheet = spreadsheet.get_worksheet(i)

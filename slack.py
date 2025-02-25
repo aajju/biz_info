@@ -1,11 +1,11 @@
 import requests
 import json
-import config
+import api_url
 
 
 def send_message(message):
 
-    webhook_url = config.SLACK_WEBHOOK_PROJECT_URL
+    webhook_url = api_url.SLACK_WEBHOOK_PROJECT_URL
 
     payload = {"text": message}
     headers = {"Content-type": "application/json"}

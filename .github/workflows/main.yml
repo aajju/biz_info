@@ -1,0 +1,49 @@
+name: Run Crawling (biz_info)
+
+on:
+  schedule:
+    - cron: "30 22 * * *" # (UTC 기준) 한국시간기준 오전 7시 30분
+  workflow_dispatch: # 수동 실행을 원할 때 사용할 수 있음
+
+jobs:
+  api-request-job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.x"
+
+      - name: Install dependencies and update SSL certificates
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ca-certificates
+          sudo update-ca-certificates
+          python -m pip install --upgrade pip
+          pip install requests
+          pip install gspread
+          pip install oauth2client
+
+      - name: Set up Google Sheets API credentials
+        run: |
+          echo ${{ secrets.JSON_BASE64 }} | base64 --decode > ./cowithone-scrap-1686123588417-7ea5acec3d36.json
+        # env:
+        # GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.JSON_BASE64 }}
+
+      - name: Show the content of the generated JSON file
+        run: cat ./cowithone-scrap-1686123588417-7ea5acec3d36.json
+
+      - name: Set environment variables
+        run: |
+          echo "JSON_KEYFILE=${{ secrets.JSON_KEYFILE }}" >> $GITHUB_ENV
+          echo "SPREADSHEET_ID2=${{ secrets.SPREADSHEET_ID2 }}" >> $GITHUB_ENV
+          echo "SPREADSHEET_LINK2=${{ secrets.SPREADSHEET_LINK2 }}" >> $GITHUB_ENV
+          echo "URL_PROJECT_BIZINFO=${{ secrets.URL_PROJECT_BIZINFO }}" >> $GITHUB_ENV
+          echo "SLACK_WEBHOOK_PROJECT_URL=${{ secrets.SLACK_WEBHOOK_PROJECT_URL }}" >> $GITHUB_ENV
+
+      - name: Run main.py
+        run: python main.py # API 요청을 할 Python 스크립트 실행

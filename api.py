@@ -1,5 +1,5 @@
 import requests
-import config
+import api_url
 import xml.etree.ElementTree as ET
 
 
@@ -54,7 +54,7 @@ def filter_items_project(items, url):
     ]
 
 
-    if url == config.URL_PROJECT_BIZINFO:  # 기업마당
+    if url == api_url.URL_PROJECT_BIZINFO:  # 기업마당
         for item in items:
             creatPnttm = item.get("creatPnttm")  # 등록일시
             pblancNm = item.get("pblancNm")  # 공고명
@@ -88,7 +88,7 @@ def filter_items_project(items, url):
 
 def get_project(url):
     params = {}
-    if url == config.URL_PROJECT_BIZINFO:
+    if url == api_url.URL_PROJECT_BIZINFO:
         params["searchCnt"] = 500
         # params["pageUnit"] = 50
         # params["pageIndex"] = 12
@@ -113,4 +113,4 @@ def get_project(url):
 
 
 def get_project_bizinfo():
-    return get_project(config.URL_PROJECT_BIZINFO)
+    return get_project(api_url.URL_PROJECT_BIZINFO)

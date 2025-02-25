@@ -1,7 +1,7 @@
 import api
 import spreadsheet
 import slack
-import config
+import api_url
 import datetime
 import time
 
@@ -27,7 +27,7 @@ def process_data_project(data, category):
         message_project += f"*{category}* 지원사업 데이터가 없습니다 \n"
 
     if category == "기업마당":
-        message_project += f"{config.SPREADSHEET_LINK2}"
+        message_project += f"{api_url.SPREADSHEET_LINK2}"
         print(message_project)
         slack.send_message(message_project)
 
