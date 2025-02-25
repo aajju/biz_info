@@ -47,3 +47,7 @@ jobs:
 
       - name: Run main.py
         run: python main.py # API 요청을 할 Python 스크립트 실행
+
+      - name: Send POST request to Google Apps Script Web App
+        run: |
+          curl -X POST ${{ secrets.APPSCRIPT_URL }}
